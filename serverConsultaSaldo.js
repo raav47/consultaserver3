@@ -4,75 +4,48 @@ const pagePromise = require('./initiPuppeter.js');
 const consultaSaldoMovilnet = require('./consultaSaldoMovilnet.js');
 //import {actualizarTasaDolarVenta,actualizarTasaDolarCompra} from './db/firebasePagoRapidoInit.js'
 
-
-
-
-
 const app = express();
 const PORT = process.env.PORT|| 9108;
 //app.use(express.text());
 
 app.use(express.json());
 
-let _pageGeneratorManage;
-
+//Middleware para chequear req
 app.use(async(req,res,next)=>{
     //const page = await _initPage(pagePromise)
-    const page = await _pageGenerator.next(); //_pageGenerator(pagePromise);
-    console.log(page)
-});
-
-pagePromise.default().then(async(petro)=>{
-    await petro.goto('http://www.movilnet.com.ve/consultarabono/Balance', {//http://www.movilnet.com.ve/sitio/minisitios/consulta/
-        waitUntil: 'domcontentloaded',
-        timeout: 180000,
-    });
-
-    const numbers = ['04161050843','04163607743','04165244948','04161767018'];
-
-    numbers.map((number) => consultaSaldoMovilnet.default(number,petro));
-
-    console.log(numbers);
-
-    Promise.all(numbers);
-
-    //await consultaSaldoMovilnet.default('04161050843',petro)
-
-})
-
-
-app.post('/',async(req,res)=>{
-    //console.log('req.body = ',req.body);//express hace que llegue directamente como object
-
     if (typeof req.body != 'object')return;
- 
 
     const requestObject = req.body;
 
-    //console.log('response_order_data = ',response_order_data);
     if(
-        !requestObject.hasOwnProperty('fiat')
-        ||!requestObject.hasOwnProperty('crypto')
-        ||!requestObject.hasOwnProperty('type')
-        ||!requestObject.hasOwnProperty('TOKEN')
-        //||!requestObject.hasOwnProperty('bank')
+        !requestObject.hasOwnProperty('number')
         ||!requestObject.hasOwnProperty('signature')
       ) {console.log('devuelto ',requestObject);return res.status(200).end()};
+      console.log('next');
+      next()
+});
+
+
+app.post('/',async(req,res)=>{
+
+    //MIDDLEWARE CHECKER, Y LUEGO:
+    const requestObject = req.body;
 
     if (requestObject.signature == 'raav') { // continuamos
         try {
 
-            const medianPrices = await binanceKnowMedianPrice.binanceKnowMedianPrice(requestObject.fiat,requestObject.type,requestObject.crypto,requestObject.bank!=undefined?[requestObject.bank]:[]);
+            const page = await _initPage(pagePromise);
 
-            console.info('medianPricesSucess fiat and type : ',requestObject.fiat + ' ' + requestObject.type);
-
+            const objectSaldo = await consultaSaldoMovilnet.default(requestObject.number,page)
+       
+            console.log('SALDO DEL NUMERO '+requestObject.number+' = ',objectSaldo.saldo);
             //return res.status(200).end();
-            return res.status(200).send(medianPrices)
+            return res.status(200).send(objectSaldo);
         
         } catch (error) {
-            console.error('Error in medianPrice ' +error);
+            console.error('Error in Server ' +error);
             console.log('requestObject = ',requestObject);
-            return res.status(400).send({error:error.toString()})
+            return res.status(400).send({error:error.toString(),ok:false})
         }
     }else{
         //si esta aqui es porque no fue sucess
@@ -92,16 +65,16 @@ async function _initPage(pagePromise) {
       
       await page.goto('http://www.movilnet.com.ve/consultarabono/Balance', {//http://www.movilnet.com.ve/sitio/minisitios/consulta/
         waitUntil: 'domcontentloaded',
-        timeout: 180000,
+        timeout: 10000,
       });
       return page;
-    }catch{
+    }catch(error){
         console.log('se debe intentar abrir de nuevo , error = ',error);
         return await _initPage(pagePromise) //forzamos hasta que abra
     }
-}
+};
 
-async function* _pageGenerator() {
+/*async function* _pageGenerator() {
     //let page = await pagePromise.default();
    
         const page = await pagePromise.default();
@@ -114,4 +87,4 @@ async function* _pageGenerator() {
     while (true) {
       yield* page;
     }
-}
+}*/

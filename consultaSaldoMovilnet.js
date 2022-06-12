@@ -11,18 +11,18 @@ async function consultarSaldoMovilnet(numero,page) {
 
     console.log('resChallengue');
 
-    await page.type('#inputValidate',resChallengue.toString(),{delay:500});
+    await page.type('#inputValidate',resChallengue.toString(),{delay:300});
 
     console.log('inputValidate');
 
     await page.click('#enviar',{delay:100});
 
 
-    await page.waitForSelector('li.collection-header > h4');
+    await page.waitForSelector('li.collection-header > h4',{delay:12000});
 
     console.log('loaded2')
 
-    const nmrValidado =  await page.$eval('li.collection-header > h4',((pDesafio)=>pDesafio.innerText.split('\n')[1]));//esto porque aqui agarramos es mobile_friendly\n04167985241//esto por si aca
+    const nmrValidado =  await page.$eval('li.collection-header',((pDesafio)=>pDesafio.innerText.split('mobile_friendly')[1]));//.split('mobile_friendly')[1] esto porque aqui agarramos es mobile_friendly\n04167985241//esto por si aca
 
     console.log(nmrValidado);
 
@@ -33,20 +33,24 @@ async function consultarSaldoMovilnet(numero,page) {
    const parentNode = await page.$$eval('li.collection-item', rows => { return rows.map(anchor => anchor.innerText)});//.slice(0, 10)
 
    const objectResolve = {
-    'number':nmrValidado,
-    'saldo':parentNode[0],
-    'status':parentNode[1],
-    'fecha_exp':parentNode[2],
+    number:nmrValidado,
+    saldo:parentNode[0],
+    status:parentNode[1],
+    fecha_exp:parentNode[2],
+    ok:true
    }
 
 
    console.info(objectResolve);//collection-item
 
+   page.close();
+
+   return objectResolve;
   } catch (error) {
     console.log('error consultado saldo = ',error);
+    return {ok:false,msj:error.toString()}
   }
 };
-
 
 async function _burlarCaptchaMovilnet(page) {
   const textValidate =  await page.$eval('#textValidate',((pDesafio)=>pDesafio.innerHTML));//¿Cuánto es? 3 + 8
