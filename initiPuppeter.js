@@ -39,7 +39,7 @@ async function _initBrowser() {
   }); //{headless:false}
 return browser;
 }
-async function _initContext() {
+async function _initContext() { //esto seria un getter
 
  // console.log(contextGlobal);
 

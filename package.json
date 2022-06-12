@@ -2,9 +2,9 @@
   "name": "consulta_saldo_movilnet",
   "version": "1.0.0",
   "description": "",
-  "main": "consultaSaldoMovilnet.js",
+  "main": "serverConsultaSaldo.js",
   "scripts": {
-    "start": "node consultaSaldoMovilnet.js"
+    "start": "node serverConsultaSaldo.js"
   },
   "author": "yo",
   "license": "ISC",

@@ -59,8 +59,8 @@ app.listen(PORT,()=>{
 });
 
 async function _initPage(pagePromise) { 
+    const page = await pagePromise.default();
     try{  
-      const page = await pagePromise.default();
       //console.log('page ', page)
       
       await page.goto('http://www.movilnet.com.ve/consultarabono/Balance', {//http://www.movilnet.com.ve/sitio/minisitios/consulta/
@@ -70,6 +70,7 @@ async function _initPage(pagePromise) {
       return page;
     }catch(error){
         console.log('se debe intentar abrir de nuevo , error = ',error);
+        page.close()
         return await _initPage(pagePromise) //forzamos hasta que abra
     }
 };
