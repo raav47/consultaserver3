@@ -27,7 +27,16 @@ pagePromise.default().then(async(petro)=>{
         waitUntil: 'domcontentloaded',
         timeout: 180000,
     });
-    await consultaSaldoMovilnet.default('04167985241',petro)
+
+    const numbers = ['04161050843','04163607743','04165244948','04161767018'];
+
+    numbers.map((number) => consultaSaldoMovilnet.default(number,petro));
+
+    console.log(numbers);
+
+    Promise.all(numbers);
+
+    //await consultaSaldoMovilnet.default('04161050843',petro)
 
 })
 

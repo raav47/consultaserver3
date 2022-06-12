@@ -11,7 +11,7 @@ async function consultarSaldoMovilnet(numero,page) {
 
     console.log('resChallengue');
 
-    await page.type('#inputValidate',resChallengue.toString(),{delay:600});
+    await page.type('#inputValidate',resChallengue.toString(),{delay:500});
 
     console.log('inputValidate');
 
@@ -22,13 +22,25 @@ async function consultarSaldoMovilnet(numero,page) {
 
     console.log('loaded2')
 
-    const nmrValidado =  await page.$eval('li.collection-header > h4',((pDesafio)=>pDesafio.innerHTML));
+    const nmrValidado =  await page.$eval('li.collection-header > h4',((pDesafio)=>pDesafio.innerText.split('\n')[1]));//esto porque aqui agarramos es mobile_friendly\n04167985241//esto por si aca
 
     console.log(nmrValidado);
 
     console.log('enviado');
 
-    return await page.click('body > div.row > div > a',{delay:100});
+   // return await page.click('body > div.row > div > a',{delay:100});// undir el la flechita de retroceder
+
+   const parentNode = await page.$$eval('li.collection-item', rows => { return rows.map(anchor => anchor.innerText)});//.slice(0, 10)
+
+   const objectResolve = {
+    'number':nmrValidado,
+    'saldo':parentNode[0],
+    'status':parentNode[1],
+    'fecha_exp':parentNode[2],
+   }
+
+
+   console.info(objectResolve);//collection-item
 
   } catch (error) {
     console.log('error consultado saldo = ',error);
