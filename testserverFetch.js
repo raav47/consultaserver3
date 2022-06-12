@@ -12,16 +12,16 @@ const axiosConfig = {
 
 
 
-////https://arcane-chamber-98016.herokuapp.com/
+const url = 'https://arcane-chamber-98016.herokuapp.com/';
 
 //192.168.1.109:9108
 
 /*
-const numbers = ['04161050843','04163607743','04165244948','04161767018'];
+const numbers = ['04161847313','04163607743','04163147782','04165244948','04169709278'];
 
 numbers.forEach(async(numero)=>{//MULTI REQ
     console.log('salió ',numero);
-    const result = await axios.post('http://192.168.1.109:9108/',JSON.stringify({
+    const result = await axios.post(url,JSON.stringify({
         number:numero,
         signature:'raav',
     }),axiosConfig);
@@ -30,10 +30,12 @@ numbers.forEach(async(numero)=>{//MULTI REQ
 })
 */
 
+///*
 (async()=>{//UN SOLO REQ
-    const result = await axios.post('https://arcane-chamber-98016.herokuapp.com/',JSON.stringify({
+    const result = await axios.post(url,JSON.stringify({
         number:'04165244948',
         signature:'raav',
     }),axiosConfig);
-    console.log(result.data.data);
+    console.log(result.data);
 })();
+//*/

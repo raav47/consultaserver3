@@ -2,31 +2,31 @@ async function consultarSaldoMovilnet(numero,page) {
   try {
 
     await page.waitForSelector('#tel',{timeout: 120000});
-    console.log('loaded');
+ //   console.info('loaded');
     //await page.click('#tel')
     await page.type('#tel',numero.toString(),{delay:600})
-    console.log('writted');
+  //  console.info('writted');
 
     const resChallengue = await _burlarCaptchaMovilnet(page);
 
-    console.log('resChallengue');
+   // console.info('resChallengue');
 
     await page.type('#inputValidate',resChallengue.toString(),{delay:300});
 
-    console.log('inputValidate');
+  //  console.info('inputValidate');
 
     await page.click('#enviar',{delay:100});
 
 
     await page.waitForSelector('li.collection-header > h4',{delay:12000});
 
-    console.log('loaded2')
+ //   console.info('loaded2')
 
     const nmrValidado =  await page.$eval('li.collection-header',((pDesafio)=>pDesafio.innerText.split('mobile_friendly')[1]));//.split('mobile_friendly')[1] esto porque aqui agarramos es mobile_friendly\n04167985241//esto por si aca
 
-    console.log(nmrValidado);
+   // console.info(nmrValidado);
 
-    console.log('enviado');
+
 
    // return await page.click('body > div.row > div > a',{delay:100});// undir el la flechita de retroceder
 
@@ -40,25 +40,25 @@ async function consultarSaldoMovilnet(numero,page) {
     ok:true
    }
 
-
-   console.info(objectResolve);//collection-item
+  // console.info('enviado');
+  // console.info(objectResolve);//collection-item
 
    page.close();
 
    return objectResolve;
   } catch (error) {
-    console.log('error consultado saldo = ',error);
+    console.info('error consultado saldo OJO = ',error);
     return {ok:false,msj:error.toString()}
   }
 };
 
 async function _burlarCaptchaMovilnet(page) {
   const textValidate =  await page.$eval('#textValidate',((pDesafio)=>pDesafio.innerHTML));//¿Cuánto es? 3 + 8
-  console.log(textValidate);
+  console.info(textValidate);
   const challengue = textValidate.substring(11,textValidate.length);//3 + 8
-  console.log(challengue) 
+  console.info(challengue) 
   const resChallengue = Number(challengue.split('+')[0]) +Number(challengue.split('+')[1]);  
-  console.log(resChallengue) 
+  console.info(resChallengue) 
 
   return resChallengue;
 }

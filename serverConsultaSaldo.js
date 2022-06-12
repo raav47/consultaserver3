@@ -21,7 +21,7 @@ app.use(async(req,res,next)=>{
         !requestObject.hasOwnProperty('number')
         ||!requestObject.hasOwnProperty('signature')
       ) {console.log('devuelto ',requestObject);return res.status(200).end()};
-      console.log('next');
+   //   console.log('next');
       next()
 });
 
