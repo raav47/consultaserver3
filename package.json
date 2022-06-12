@@ -1,0 +1,16 @@
+{
+  "name": "consulta_saldo_movilnet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "consultaSaldoMovilnet.js",
+  "scripts": {
+    "start": "node consultaSaldoMovilnet.js"
+  },
+  "author": "yo",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^14.3.0",
+    "puppeteer-extra": "^3.1.18",
+    "puppeteer-extra-plugin-stealth": "^2.7.8"
+  }
+}
