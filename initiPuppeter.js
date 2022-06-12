@@ -35,7 +35,7 @@ async function _initBrowser() {
       '--no-sandbox',
       '--disable-setuid-sandbox',
     ],
-      headless:false,
+     // headless:false,
   }); //{headless:false}
 return browser;
 }
