@@ -34,6 +34,8 @@ async function _initBrowser() {
       '--incognito',
       '--no-sandbox',
       '--disable-setuid-sandbox',
+      '--single-process',
+      '--no-zygote'
     ],
      // headless:false,
   }); //{headless:false}
