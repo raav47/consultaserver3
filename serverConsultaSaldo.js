@@ -43,7 +43,7 @@ app.post('/',async(req,res)=>{
             return res.status(200).send(objectSaldo);
         
         } catch (error) {
-            console.error('Error in Server ' +error);
+            console.error('Error in Server ' ,error);
             console.log('requestObject = ',requestObject);
             return res.status(400).send({error:error.toString(),ok:false})
         }

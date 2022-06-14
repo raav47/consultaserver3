@@ -4,14 +4,14 @@ async function consultarSaldoMovilnet(numero,page) {
     await page.waitForSelector('#tel',{timeout: 120000});
  //   console.info('loaded');
     //await page.click('#tel')
-    await page.type('#tel',numero.toString(),{delay:600})
+    await page.type('#tel',numero.toString(),{delay:350})
   //  console.info('writted');
 
     const resChallengue = await _burlarCaptchaMovilnet(page);
 
    // console.info('resChallengue');
 
-    await page.type('#inputValidate',resChallengue.toString(),{delay:300});
+    await page.type('#inputValidate',resChallengue.toString(),{delay:350});
 
   //  console.info('inputValidate');
 

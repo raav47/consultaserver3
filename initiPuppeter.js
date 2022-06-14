@@ -34,12 +34,12 @@ async function _initBrowser() {
       '--incognito',
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--single-process',
-      '--no-zygote'
+      //'--single-process',
+     // '--no-zygote'
     ],
-     // headless:false,
+      headless:false,
   }); //{headless:false}
-return browser;
+ return browser;
 }
 async function _initContext() { //esto seria un getter
 

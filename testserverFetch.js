@@ -13,8 +13,7 @@ const axiosConfig = {
 
 
 const url = 'https://arcane-chamber-98016.herokuapp.com/';
-
-//192.168.1.109:9108
+//const url = 'http://192.168.1.109:9108/';
 
 /*
 const numbers = ['04161847313','04163607743','04163147782','04165244948','04169709278'];
