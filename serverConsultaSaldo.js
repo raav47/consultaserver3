@@ -63,7 +63,7 @@ async function _initPage(pagePromise) {
     try{  
       //console.log('page ', page)
       
-      await page.goto('http://www.movilnet.com.ve/consultarabono/Balance', {//http://www.movilnet.com.ve/sitio/minisitios/consulta/
+      await page.goto('http://www.movilnet.com.ve/consultarabono/Balance', { //http://www.movilnet.com.ve/sitio/minisitios/consulta/
         waitUntil: 'domcontentloaded',
         timeout: 10000,
       });
