@@ -1,11 +1,12 @@
-const puppeteer = require('puppeteer-extra');
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+import { BrowserContext, Page } from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 
-let contextGlobal;//convertir a clase
+let contextGlobal:BrowserContext;//convertir a clase
 
 //convertir a clase
-async function initPuppeter() {
+async function _initPuppeter() {
 //puppeteer.launch
 //browser.createIncognitoBrowserContext();
 
@@ -14,16 +15,21 @@ async function initPuppeter() {
     const page = await context.newPage();
 
 
-  await page.setDefaultNavigationTimeout(120000);
+
+   page.setDefaultNavigationTimeout(120000);
   await page.setRequestInterception(true);
+  
   page.on('request', (req) => {
-  if(req.resourceType() === 'stylesheet' || req.resourceType() === 'font'){
-  req.abort();
-  }
-  else {
-  req.continue();
-  }}
+
+    if(req.resourceType() === 'stylesheet' || req.resourceType() === 'font'){
+    req.abort();
+    }
+    else {
+    req.continue();
+    }}
   );
+
+  
 
   return page;
 }
@@ -37,7 +43,7 @@ async function _initBrowser() {
       //'--single-process',
      // '--no-zygote'
     ],
-      headless:false,
+     headless:true,
   }); //{headless:false}
  return browser;
 }
@@ -56,6 +62,21 @@ async function _initContext() { //esto seria un getter
   return context;
   
 }
- 
-exports.default = initPuppeter;
+async function initPage(url:string):Promise<Page> { 
+  const page = await _initPuppeter();
+  try{  
+    //console.log('page ', page)
+    
+    await page.goto(url, { //http://www.movilnet.com.ve/sitio/minisitios/consulta/
+      waitUntil: 'domcontentloaded',
+      timeout: 120000,
+    });
+    return page;
+  }catch(error){
+      console.log('se debe intentar abrir de nuevo , error = ',error);
+      page.close()
+      return await initPage(url) //forzamos hasta que abra
+  }
+};
+export default initPage;
 
