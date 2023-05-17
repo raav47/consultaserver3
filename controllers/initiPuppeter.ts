@@ -1,6 +1,6 @@
-import { BrowserContext, Page } from 'puppeteer';
-import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import {launch, BrowserContext, Page } from 'puppeteer';
+//import puppeteer from 'puppeteer-extra';
+//import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 
 let contextGlobal:BrowserContext;//convertir a clase
@@ -34,8 +34,8 @@ async function _initPuppeter() {
   return page;
 }
 async function _initBrowser() {
-  puppeteer.use(StealthPlugin())
-  const browser = await puppeteer.launch({
+ // puppeteer.use(StealthPlugin())
+  const browser = await launch({
     args: [
       '--incognito',
       '--no-sandbox',
