@@ -9,11 +9,11 @@ async function consultarSaldoMovilnet(numero) {
     await page.waitForSelector('#tel', { timeout: 120000 });
     //   console.info('loaded');
     //await page.click('#tel')
-    await page.type('#tel', numero.toString(), { delay: 190 });
+    await page.type('#tel', numero.toString(), { delay: 101 });
     //  console.info('writted');
     const resChallengue = await _burlarCaptchaMovilnet(page);
     // console.info('resChallengue');
-    await page.type('#inputValidate', resChallengue.toString(), { delay: 350 });
+    await page.type('#inputValidate', resChallengue.toString(), { delay: 200 });
     //  console.info('inputValidate');
     await page.click('#enviar', { delay: 100 });
     await page.waitForSelector('li.collection-header > h4');
