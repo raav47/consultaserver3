@@ -1,5 +1,5 @@
 {
-  "name": "consulta_saldo_movilnet",
+  "name": "consulta_saldo_venezuela",
   "version": "1.0.0",
   "description": "",
   "main": "serverConsultaSaldo.ts",
@@ -10,7 +10,7 @@
     "dev": "tsc && node ./build/serverConsultaSaldo.js"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node" : ">=16.16.0 <=16.17.0"
   },
   "author": "yo",
   "license": "ISC",

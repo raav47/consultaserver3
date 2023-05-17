@@ -12,8 +12,8 @@ const axiosConfig = {
 
 
 
-//const url = 'https://arcane-chamber-98016.herokuapp.com/';
-const url = 'http://192.168.0.118:9108/';
+const url = 'https://server-koufvbwwi-consultasaldovenezuela.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
+//const url = 'http://192.168.0.118:9108/';
 
 /*
 const numbers = ['04161847313','04163607743','04163147782','04165244948','04169709278'];
@@ -75,7 +75,7 @@ async function consultaSaldoDigitel(numero) {
 }
 
 async function consultaSaldoCantv(numero) {
-    const result = await axios.post(url+"cantv",JSON.stringify({
+    const result = await axios.post(url+"/cantv",JSON.stringify({
         number:numero,
         signature:'raav',
         version:"1.0",
