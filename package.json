@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./build/serverConsultaSaldo.js",
-    "build": "tsc &&  yarn add puppeteer-extra-plugin-stealth",
+    "build": "tsc",
     "dev": "tsc && node ./build/serverConsultaSaldo.js"
   },
   "engines": {

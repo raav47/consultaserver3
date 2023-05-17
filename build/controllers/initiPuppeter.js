@@ -1,10 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const puppeteer_extra_1 = __importDefault(require("puppeteer-extra"));
-const puppeteer_extra_plugin_stealth_1 = __importDefault(require("puppeteer-extra-plugin-stealth"));
+const puppeteer_1 = require("puppeteer");
+//import puppeteer from 'puppeteer-extra';
+//import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 let contextGlobal; //convertir a clase
 //convertir a clase
 async function _initPuppeter() {
@@ -25,8 +23,8 @@ async function _initPuppeter() {
     return page;
 }
 async function _initBrowser() {
-    puppeteer_extra_1.default.use((0, puppeteer_extra_plugin_stealth_1.default)());
-    const browser = await puppeteer_extra_1.default.launch({
+    // puppeteer.use(StealthPlugin())
+    const browser = await (0, puppeteer_1.launch)({
         args: [
             '--incognito',
             '--no-sandbox',
