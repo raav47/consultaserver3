@@ -12,8 +12,8 @@ const axiosConfig = {
 
 
 
-const url = 'https://server-chi-jade.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
-//const url = 'http://192.168.0.118:9108/';
+//const url = 'https://server-chi-jade.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
+const url = 'http://192.168.0.118:9108/';
 
 /*
 const numbers = ['04161847313','04163607743','04163147782','04165244948','04169709278'];
@@ -33,7 +33,7 @@ numbers.forEach(async(numero)=>{//MULTI REQ
 ///*
 (async()=>{//UN SOLO REQ
     //const numero = "04265753903";
-    const numero = "04166436727"
+    const numero = "04123127158"
     /*const numero = 
     "04123547859" prepago
     "04123127158" pospago
@@ -76,7 +76,7 @@ async function consultaSaldoDigitel(numero) {
 }
 
 async function consultaSaldoCantv(numero) {
-    const result = await axios.post(url+"/cantv",JSON.stringify({
+    const result = await axios.post(url+"cantv",JSON.stringify({
         number:numero,
         signature:'raav',
         version:"1.0",

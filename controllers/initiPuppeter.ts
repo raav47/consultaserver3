@@ -4,8 +4,11 @@
 
 import chrome from 'chrome-aws-lambda';
 import puppeteer,{BrowserContext,Page} from 'puppeteer-core';
+/// SOLO PRUEBA import puppeteer,{BrowserContext,Page} from 'puppeteer';
 
 let contextGlobal:BrowserContext;//convertir a clase
+
+//let prueba = true;
 
 //sudo apt-get install ca-certificates fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils
 async function _initBrowser() {
@@ -21,7 +24,8 @@ async function _initBrowser() {
       headless:true,
    }); //{headless:false}*/
 
-   console.info("chrome.executablePath,",await chrome.executablePath)
+  // console.info("chrome.executablePath,",await chrome.executablePath)
+
    const browser = await puppeteer.launch({
      args: [
       ...chrome.args,
@@ -32,8 +36,8 @@ async function _initBrowser() {
        //'--single-process',
       // '--no-zygote'
      ],
-      headless:true,
-      executablePath: await (chrome.executablePath),
+      headless:false,
+      executablePath: await (chrome.executablePath) ,/// QUITAR  SOLO PRUEBA
       ignoreHTTPSErrors:true,
    }); //{headless:false}
   return browser;
@@ -70,7 +74,12 @@ async function _initPuppeter() {
     
     page.on('request', (req) => {
   
-      if(req.resourceType() === 'stylesheet' || req.resourceType() === 'font'){
+      if(req.resourceType() === 'stylesheet' 
+      || req.resourceType() === 'font'
+      || req.resourceType() === 'media'
+      || req.resourceType() === "image"
+      ||req.resourceType() === "manifest"
+      ||req.resourceType() === "fetch"){
       req.abort();
       }
       else {

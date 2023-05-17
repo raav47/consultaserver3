@@ -30,5 +30,6 @@
     "axios": "^0.27.2",
     "request-promise-native": "^1.0.9",
     "typescript": "^4.7.4"
+  
   }
 }

@@ -7,10 +7,10 @@ const initiPuppeter_js_1 = __importDefault(require("./initiPuppeter.js"));
 async function consultarSaldoDigitel(numero) {
     const page = await (0, initiPuppeter_js_1.default)("https://www.digitel.com.ve/personas/consultar-saldo/");
     const selectorNumberInput = "#numero";
-    await page.waitForSelector(selectorNumberInput, { timeout: 120000 });
+    ///await page.waitForSelector(selectorNumberInput,{timeout: 120000});
     //   console.info('loaded');
     //await page.click('#tel')
-    await page.type(selectorNumberInput, numero.toString(), { delay: 61 }); //250
+    await page.type(selectorNumberInput, numero.toString(), { delay: 18 }); //250
     //  console.info('writted');
     const resChallengue = await _burlarCaptchaDigitel(page);
     console.info('resChallengue=', resChallengue);
