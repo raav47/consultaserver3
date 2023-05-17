@@ -12,7 +12,7 @@ const axiosConfig = {
 
 
 
-const url = 'https://server-1b2j4vv13-consultasaldovenezuela.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
+const url = 'https://server-b1uhcgm6m-consultasaldovenezuela.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
 //const url = 'http://192.168.0.118:9108/';
 
 /*

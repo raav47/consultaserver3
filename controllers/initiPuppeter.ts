@@ -1,4 +1,4 @@
-import {launch, BrowserContext, Page } from 'puppeteer';
+import puppeteer,{BrowserContext, Page } from 'puppeteer';
 //import puppeteer from 'puppeteer-extra';
 //import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
@@ -6,47 +6,21 @@ import {launch, BrowserContext, Page } from 'puppeteer';
 let contextGlobal:BrowserContext;//convertir a clase
 
 //convertir a clase
-async function _initPuppeter() {
-//puppeteer.launch
-//browser.createIncognitoBrowserContext();
-
-    const context = await _initContext();
-
-    const page = await context.newPage();
-
-
-
-   page.setDefaultNavigationTimeout(120000);
-  await page.setRequestInterception(true);
-  
-  page.on('request', (req) => {
-
-    if(req.resourceType() === 'stylesheet' || req.resourceType() === 'font'){
-    req.abort();
-    }
-    else {
-    req.continue();
-    }}
-  );
-
-  
-
-  return page;
-}
 async function _initBrowser() {
- // puppeteer.use(StealthPlugin())
-  const browser = await launch({
-    args: [
-      '--incognito',
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      //'--single-process',
-     // '--no-zygote'
-    ],
-     headless:true,
-  }); //{headless:false}
- return browser;
-}
+  // puppeteer.use(StealthPlugin())
+   const browser = await puppeteer.launch({
+     args: [
+       '--incognito',
+       '--no-sandbox',
+       '--disable-setuid-sandbox',
+       //'--single-process',
+      // '--no-zygote'
+     ],
+      headless:true,
+   }); //{headless:false}
+  return browser;
+ }
+
 async function _initContext() { //esto seria un getter
 
  // console.log(contextGlobal);
@@ -62,6 +36,36 @@ async function _initContext() { //esto seria un getter
   return context;
   
 }
+ 
+async function _initPuppeter() {
+  //puppeteer.launch
+  //browser.createIncognitoBrowserContext();
+  
+      const context = await _initContext();
+  
+      const page = await context.newPage();
+  
+  
+  
+     page.setDefaultNavigationTimeout(120000);
+    await page.setRequestInterception(true);
+    
+    page.on('request', (req) => {
+  
+      if(req.resourceType() === 'stylesheet' || req.resourceType() === 'font'){
+      req.abort();
+      }
+      else {
+      req.continue();
+      }}
+    );
+  
+    
+  
+    return page;
+  }
+
+  
 async function initPage(url:string):Promise<Page> { 
   const page = await _initPuppeter();
   try{  
