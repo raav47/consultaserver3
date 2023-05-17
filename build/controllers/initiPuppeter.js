@@ -1,30 +1,16 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const puppeteer_1 = require("puppeteer");
+const puppeteer_1 = __importDefault(require("puppeteer"));
 //import puppeteer from 'puppeteer-extra';
 //import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 let contextGlobal; //convertir a clase
 //convertir a clase
-async function _initPuppeter() {
-    //puppeteer.launch
-    //browser.createIncognitoBrowserContext();
-    const context = await _initContext();
-    const page = await context.newPage();
-    page.setDefaultNavigationTimeout(120000);
-    await page.setRequestInterception(true);
-    page.on('request', (req) => {
-        if (req.resourceType() === 'stylesheet' || req.resourceType() === 'font') {
-            req.abort();
-        }
-        else {
-            req.continue();
-        }
-    });
-    return page;
-}
 async function _initBrowser() {
     // puppeteer.use(StealthPlugin())
-    const browser = await (0, puppeteer_1.launch)({
+    const browser = await puppeteer_1.default.launch({
         args: [
             '--incognito',
             '--no-sandbox',
@@ -45,6 +31,23 @@ async function _initContext() {
     const context = await browser.createIncognitoBrowserContext();
     contextGlobal = context; //convertir a clase para evitar variables globales y recordar mas seguro estado
     return context;
+}
+async function _initPuppeter() {
+    //puppeteer.launch
+    //browser.createIncognitoBrowserContext();
+    const context = await _initContext();
+    const page = await context.newPage();
+    page.setDefaultNavigationTimeout(120000);
+    await page.setRequestInterception(true);
+    page.on('request', (req) => {
+        if (req.resourceType() === 'stylesheet' || req.resourceType() === 'font') {
+            req.abort();
+        }
+        else {
+            req.continue();
+        }
+    });
+    return page;
 }
 async function initPage(url) {
     const page = await _initPuppeter();
