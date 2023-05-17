@@ -9,7 +9,7 @@ async function consultarSaldoMovilnet(numero) {
     await page.waitForSelector('#tel', { timeout: 120000 });
     //   console.info('loaded');
     //await page.click('#tel')
-    await page.type('#tel', numero.toString(), { delay: 250 });
+    await page.type('#tel', numero.toString(), { delay: 190 });
     //  console.info('writted');
     const resChallengue = await _burlarCaptchaMovilnet(page);
     // console.info('resChallengue');

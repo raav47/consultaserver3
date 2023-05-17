@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const initiPuppeter_js_1 = __importDefault(require("./initiPuppeter.js"));
+//import { Page } from 'puppeteer';//Solo para tipar
 /*
 async function consultarSaldoCantv(numero:number) {
 
@@ -86,15 +87,15 @@ async function _burlarCaptchaCantv(page:Page) {
 async function consultarSaldoCantv(numero) {
     const codigoArea = numero.toString().slice(1, 4); //de 0276334... agarramos 276
     const telefonoSinArea = numero.toString().slice(4, numero.toString().length); //de 0276334... agarramos 276
-    console.info("codigoArea", codigoArea);
-    console.info("telefonoSinArea,", telefonoSinArea);
+    //console.info("codigoArea",codigoArea);
+    // console.info("telefonoSinArea,",telefonoSinArea);
     const urlApi = `https://cati.cantv.com.ve/chat_cantv_java/Servlet_Consulta_Saldo?consulta_codigo_area=${codigoArea}&consulta_numero_telefonico=${telefonoSinArea}`;
     const page = await (0, initiPuppeter_js_1.default)(urlApi);
     // await page.waitForNavigation();
     //const data = await page.evaluate(() => document.evaluate("/html/body/text()", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue);
     const dataString = await page.evaluate(() => document.body.innerText);
     const dataObj = JSON.parse(dataString)[0];
-    console.info(dataObj);
+    // console.info(dataObj);
     /*{
         codigoArea: '276',
         telefono: '3555358',

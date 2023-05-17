@@ -10,11 +10,11 @@ async function consultarSaldoDigitel(numero) {
     await page.waitForSelector(selectorNumberInput, { timeout: 120000 });
     //   console.info('loaded');
     //await page.click('#tel')
-    await page.type(selectorNumberInput, numero.toString(), { delay: 280 });
+    await page.type(selectorNumberInput, numero.toString(), { delay: 251 });
     //  console.info('writted');
     const resChallengue = await _burlarCaptchaDigitel(page);
     console.info('resChallengue=', resChallengue);
-    await page.type('#txtCode_consulta', resChallengue.toString(), { delay: 380 });
+    await page.type('#txtCode_consulta', resChallengue.toString(), { delay: 340 });
     //  console.info('inputValidate');
     await page.click('#consulta_saldo_form > div:nth-child(6) > button', { delay: 120 });
     const response = await page.waitForResponse(response => response.url().includes('admin-ajax.php'), { timeout: 0 });

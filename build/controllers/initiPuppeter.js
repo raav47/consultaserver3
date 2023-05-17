@@ -34,7 +34,7 @@ async function _initBrowser() {
             //'--single-process',
             // '--no-zygote'
         ],
-        headless: false,
+        headless: true,
     }); //{headless:false}
     return browser;
 }
