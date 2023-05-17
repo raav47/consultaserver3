@@ -12,7 +12,7 @@ const axiosConfig = {
 
 
 
-const url = 'https://server-jdsinzx83-consultasaldovenezuela.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
+const url = 'https://server-chi-jade.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
 //const url = 'http://192.168.0.118:9108/';
 
 /*
@@ -33,7 +33,7 @@ numbers.forEach(async(numero)=>{//MULTI REQ
 ///*
 (async()=>{//UN SOLO REQ
     //const numero = "04265753903";
-    const numero = "02763555358"
+    const numero = "04166436727"
     /*const numero = 
     "04123547859" prepago
     "04123127158" pospago
@@ -52,7 +52,7 @@ numbers.forEach(async(numero)=>{//MULTI REQ
     */
     console.info("url "+url)
     console.info("iniciado consulta saldo del número "+numero)
-    await consultaSaldoMovilnet(numero);
+    await consultaSaldoDigitel(numero);
 })();
 
 async function consultaSaldoMovilnet(numero) {
