@@ -5,8 +5,8 @@
   "main": "serverConsultaSaldo.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./build/serverConsultaSaldo.js",
-    "build": "tsc",
+    "start": "node ./build/serverConsultaSaldo.js ",
+    "build": "tsc && node node_modules/puppeteer/install.js",
     "dev": "tsc && node ./build/serverConsultaSaldo.js"
   },
   "engines": {
