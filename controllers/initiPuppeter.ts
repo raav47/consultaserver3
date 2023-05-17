@@ -1,13 +1,15 @@
-import puppeteer,{BrowserContext, Page } from 'puppeteer';
+//import puppeteer,{BrowserContext, Page } from 'puppeteer';
 //import puppeteer from 'puppeteer-extra';
 //import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
+import chrome from 'chrome-aws-lambda';
+import puppeteer,{BrowserContext,Page} from 'puppeteer-core';
 
 let contextGlobal:BrowserContext;//convertir a clase
 
 //convertir a clase
 async function _initBrowser() {
-  // puppeteer.use(StealthPlugin())
+  /**  puppeteer.use(StealthPlugin())
    const browser = await puppeteer.launch({
      args: [
        '--incognito',
@@ -17,6 +19,22 @@ async function _initBrowser() {
       // '--no-zygote'
      ],
       headless:true,
+   }); //{headless:false}*/
+
+   console.info("chrome.executablePath,",await chrome.executablePath)
+   const browser = await puppeteer.launch({
+     args: [
+      ...chrome.args,
+       '--incognito',
+       '--no-sandbox',
+       '--hide-scrollbars',
+       '--disable-setuid-sandbox',
+       //'--single-process',
+      // '--no-zygote'
+     ],
+      headless:true,
+      executablePath: await (chrome.executablePath),
+      ignoreHTTPSErrors:true,
    }); //{headless:false}
   return browser;
  }

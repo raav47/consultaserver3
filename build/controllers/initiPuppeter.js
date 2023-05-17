@@ -1,24 +1,41 @@
 "use strict";
+//import puppeteer,{BrowserContext, Page } from 'puppeteer';
+//import puppeteer from 'puppeteer-extra';
+//import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const puppeteer_1 = __importDefault(require("puppeteer"));
-//import puppeteer from 'puppeteer-extra';
-//import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+const chrome_aws_lambda_1 = __importDefault(require("chrome-aws-lambda"));
+const puppeteer_core_1 = __importDefault(require("puppeteer-core"));
 let contextGlobal; //convertir a clase
 //convertir a clase
 async function _initBrowser() {
-    // puppeteer.use(StealthPlugin())
-    const browser = await puppeteer_1.default.launch({
+    /**  puppeteer.use(StealthPlugin())
+     const browser = await puppeteer.launch({
+       args: [
+         '--incognito',
+         '--no-sandbox',
+         '--disable-setuid-sandbox',
+         //'--single-process',
+        // '--no-zygote'
+       ],
+        headless:true,
+     }); //{headless:false}*/
+    console.info("chrome.executablePath,", await chrome_aws_lambda_1.default.executablePath);
+    const browser = await puppeteer_core_1.default.launch({
         args: [
+            ...chrome_aws_lambda_1.default.args,
             '--incognito',
             '--no-sandbox',
+            '--hide-scrollbars',
             '--disable-setuid-sandbox',
             //'--single-process',
             // '--no-zygote'
         ],
         headless: true,
+        executablePath: await (chrome_aws_lambda_1.default.executablePath),
+        ignoreHTTPSErrors: true,
     }); //{headless:false}
     return browser;
 }
