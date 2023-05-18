@@ -12,8 +12,8 @@ const axiosConfig = {
 
 
 
-//const url = 'https://server-chi-jade.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
-const url = 'http://192.168.0.118:9108/';
+const url = 'https://server-chi-jade.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
+//const url = 'http://192.168.0.118:9108/';
 
 /*
 const numbers = ['04161847313','04163607743','04163147782','04165244948','04169709278'];

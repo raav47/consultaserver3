@@ -14,9 +14,9 @@ async function consultarSaldoDigitel(numero) {
     //  console.info('writted');
     const resChallengue = await _burlarCaptchaDigitel(page);
     console.info('resChallengue=', resChallengue);
-    await page.type('#txtCode_consulta', resChallengue.toString(), { delay: 60 }); //340
+    await page.type('#txtCode_consulta', resChallengue.toString(), { delay: 20 }); //340
     //  console.info('inputValidate');
-    await page.click('#consulta_saldo_form > div:nth-child(6) > button', { delay: 50 }); //120
+    await page.click('#consulta_saldo_form > div:nth-child(6) > button', { delay: 30 }); //120
     const response = await page.waitForResponse(response => response.url().includes('admin-ajax.php'), { timeout: 0 });
     //  linkHandlers[0].click()
     const dataObj = await response.json();

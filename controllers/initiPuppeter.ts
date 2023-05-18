@@ -37,7 +37,7 @@ async function _initBrowser() {
       // '--no-zygote'
      ],
       headless:false,
-      executablePath: await (chrome.executablePath) ,/// QUITAR  SOLO PRUEBA
+      executablePath: await (chrome.executablePath) ,/// ONLY PROD
       ignoreHTTPSErrors:true,
    }); //{headless:false}
   return browser;
