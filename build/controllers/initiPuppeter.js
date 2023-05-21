@@ -7,8 +7,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chrome_aws_lambda_1 = __importDefault(require("chrome-aws-lambda"));
-const puppeteer_core_1 = __importDefault(require("puppeteer-core"));
-/// SOLO PRUEBA import puppeteer,{BrowserContext,Page} from 'puppeteer';
+///import puppeteer,{BrowserContext,Page} from 'puppeteer-core';///SOLO PROD
+/// SOLO PRUEBA 
+const puppeteer_1 = __importDefault(require("puppeteer")); /// SOLO PRUEBA 
 let contextGlobal; //convertir a clase
 //let prueba = true;
 //sudo apt-get install ca-certificates fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils
@@ -25,7 +26,7 @@ async function _initBrowser() {
         headless:true,
      }); //{headless:false}*/
     // console.info("chrome.executablePath,",await chrome.executablePath)
-    const browser = await puppeteer_core_1.default.launch({
+    const browser = await puppeteer_1.default.launch({
         args: [
             ...chrome_aws_lambda_1.default.args,
             '--incognito',
@@ -57,6 +58,7 @@ async function _initPuppeter() {
     const context = await _initContext();
     const page = await context.newPage();
     page.setDefaultNavigationTimeout(120000);
+    //await page.setCacheEnabled(false);//En teoria para que pueda undir f5 en la de digitel sin que me salga el captcha luego de un tiempo
     await page.setRequestInterception(true);
     page.on('request', (req) => {
         if (req.resourceType() === 'stylesheet'

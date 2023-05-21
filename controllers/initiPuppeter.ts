@@ -3,8 +3,8 @@
 //import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 import chrome from 'chrome-aws-lambda';
-import puppeteer,{BrowserContext,Page} from 'puppeteer-core';
-/// SOLO PRUEBA import puppeteer,{BrowserContext,Page} from 'puppeteer';
+import puppeteer,{BrowserContext,Page} from 'puppeteer-core';///SOLO PROD
+/// SOLO PRUEBA import puppeteer,{BrowserContext,Page} from 'puppeteer';/// SOLO PRUEBA 
 
 let contextGlobal:BrowserContext;//convertir a clase
 
@@ -70,6 +70,9 @@ async function _initPuppeter() {
   
   
      page.setDefaultNavigationTimeout(120000);
+
+     //await page.setCacheEnabled(false);//En teoria para que pueda undir f5 en la de digitel sin que me salga el captcha luego de un tiempo
+
     await page.setRequestInterception(true);
     
     page.on('request', (req) => {

@@ -1,6 +1,7 @@
 import initPage from './initiPuppeter.js';
 
-import { Page } from 'puppeteer-core';//Solo para tipar
+import { Page } from 'puppeteer-core';//Solo para tipar /// SOLO PROD
+//import { Page } from 'puppeteer';//Solo para tipar /// SOLO PRUEBA 
 
 
 async function consultarSaldoMovilnet(numero:number) {

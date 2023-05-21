@@ -4,8 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const initiPuppeter_js_1 = __importDefault(require("./initiPuppeter.js"));
+let pageStrategyKeepOpenedDigitelPage = null;
 async function consultarSaldoDigitel(numero) {
-    const page = await (0, initiPuppeter_js_1.default)("https://www.digitel.com.ve/personas/consultar-saldo/");
+    const page = await getOpenedDigitelPage();
     const selectorNumberInput = "#numero";
     ///await page.waitForSelector(selectorNumberInput,{timeout: 120000});
     //   console.info('loaded');
@@ -39,29 +40,47 @@ async function consultarSaldoDigitel(numero) {
  }
     
     */
-    await page.close();
-    //Si el numero no existe digitel nos responde Sucess con null
-    if (dataObj.Success === true) {
-        return {
-            //ok:(dataObj.Success === true),//de forma que si es null sea false y no null
-            number: dataObj.Linea,
-            operadora: "digitel",
-            saldo: dataObj.Datos.Saldo,
-            fechaPago: dataObj.Datos.FechaPago,
-            fechaOperacion: Date.now(),
-            datos: _removeToDatosElementsRepeatedDigitel(dataObj.Datos)
-        };
-    }
-    else {
+    /*instead close Sin await ya que como desactive el cache en initPuppeteer acabaria esperando que cargue la pagina innecesariamente
+    
+    o con await y con cache para que rfresce rapidamente, de momento probare esta a ver si no me aparecen captchas externos entonces vale la pena
+    */
+    await page.reload();
+    if ( //Esto por el problema descrito en abrir multiples pestañas digitel abajo,
+    dataObj.Linea != numero) {
         return {
             //ok:(dataObj.Success === true),//de forma que si es null sea false y no null
             saldo: " - ",
             operadora: "digitel",
             number: dataObj.Linea,
             fechaPago: " - ",
-            datos: { message: dataObj.Message },
+            datos: { message: "No se pudo completar tu consulta, por favor vuelve a intentarlo" },
             fechaOperacion: Date.now(),
         };
+    }
+    else {
+        //Si el numero no existe digitel nos responde Sucess con null
+        if (dataObj.Success === true) {
+            return {
+                //ok:(dataObj.Success === true),//de forma que si es null sea false y no null
+                number: dataObj.Linea,
+                operadora: "digitel",
+                saldo: dataObj.Datos.Saldo,
+                fechaPago: dataObj.Datos.FechaPago,
+                fechaOperacion: Date.now(),
+                datos: _removeToDatosElementsRepeatedDigitel(dataObj.Datos)
+            };
+        }
+        else {
+            return {
+                //ok:(dataObj.Success === true),//de forma que si es null sea false y no null
+                saldo: " - ",
+                operadora: "digitel",
+                number: dataObj.Linea,
+                fechaPago: " - ",
+                datos: { message: dataObj.Message },
+                fechaOperacion: Date.now(),
+            };
+        }
     }
 }
 ;
@@ -92,5 +111,15 @@ function _removeToDatosElementsRepeatedDigitel(datos) {
         delete datos.FechaPago; //Ya la asigne al objeto principal!
     }
     return datos;
+}
+async function getOpenedDigitelPage() {
+    /*
+    Con este sistema existe un bug, y es que si llegan dos a la vez o durante una consulta se realiza entonces se confunde puppeteer y acaba devolviendole a ambos el mismo saldo de la ultima peticion
+    */
+    if (!pageStrategyKeepOpenedDigitelPage) {
+        const page = await (0, initiPuppeter_js_1.default)("https://www.digitel.com.ve/personas/consultar-saldo/");
+        pageStrategyKeepOpenedDigitelPage = page;
+    }
+    return pageStrategyKeepOpenedDigitelPage;
 }
 exports.default = consultarSaldoDigitel;
