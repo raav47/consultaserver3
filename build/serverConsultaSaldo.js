@@ -25,7 +25,7 @@ app.use((req, res, next) => {
         return res.status(200).end();
     }
     ;
-    if (!(requestObject.signature === 'raav') || !(requestObject.version === "1.0")) {
+    if (!(requestObject.signature === 'raav') || !(requestObject.version === "1.0") && !(requestObject.version === "1.1")) {
         console.log('devuelto signature invalid o version', requestObject.signature + " ", requestObject.version);
         return res.status(400).end();
     }

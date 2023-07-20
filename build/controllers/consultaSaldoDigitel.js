@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const initiPuppeter_js_1 = __importDefault(require("./initiPuppeter.js"));
+//import { Page } from 'puppeteer';//Solo para tipar /// SOLO PRUEBA 
 let pageStrategyKeepOpenedDigitelPage = null;
 async function consultarSaldoDigitel(numero) {
     const page = await getOpenedDigitelPage();
@@ -21,7 +22,7 @@ async function consultarSaldoDigitel(numero) {
     const response = await page.waitForResponse(response => response.url().includes('admin-ajax.php'), { timeout: 0 });
     //  linkHandlers[0].click()
     const dataObj = await response.json();
-    console.log("dataObj", await dataObj);
+    //console.log("dataObj",await dataObj)
     /*
     dataObj:{
    Success: true,

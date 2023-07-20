@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const initiPuppeter_js_1 = __importDefault(require("./initiPuppeter.js"));
+//import { Page } from 'puppeteer';//Solo para tipar /// SOLO PRUEBA 
 async function consultarSaldoMovilnet(numero) {
     const page = await (0, initiPuppeter_js_1.default)("http://www.movilnet.com.ve/consultarabono/Balance");
     await page.waitForSelector('#tel', { timeout: 120000 });
