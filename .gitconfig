@@ -2,3 +2,15 @@
     name = raav24
     email = ricardo.v1v46@gmail.com
     password = Raymond233.
+[http]
+    sslVerify = false
+
+[https]
+    sslverify = false
+
+[push]
+    default = simple
+[credential]
+    helper = cache --timeout=360000000
+[core]
+    autocrlf = false
