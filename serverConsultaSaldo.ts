@@ -111,7 +111,7 @@ app.post("/cantv",async (req,res) => {
 
 
 app.listen(PORT,()=>
-    console.log('ConsultaSaldo listo en el port: ' + PORT)
+    console.log('ConsultaSaldo listo on el port: ' + PORT)
 );
 
 

@@ -84,7 +84,7 @@ app.post("/cantv", async (req, res) => {
         return res.status(444).send({ error: error.toString() });
     }
 });
-app.listen(PORT, () => console.log('ConsultaSaldo listo en el port: ' + PORT));
+app.listen(PORT, () => console.log('ConsultaSaldo listo on el port: ' + PORT));
 /*async function* _pageGenerator() {
     //let page = await pagePromise.default();
    
