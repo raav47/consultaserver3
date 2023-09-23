@@ -9,10 +9,10 @@ import puppeteer,{BrowserContext,Page} from 'puppeteer-core';///SOLO PROD
 import chromium from "@sparticuz/chromium" ;
 
 // Optional: If you'd like to use the legacy headless mode. "new" is the default.
-chromium.setHeadlessMode = true;
+//chromium.setHeadlessMode = true;
 
 // Optional: If you'd like to disable webgl, true is the default.
-chromium.setGraphicsMode = false;
+//chromium.setGraphicsMode = false;
 
 
 
@@ -37,19 +37,19 @@ async function _initBrowser() {
    }); //{headless:false}*/
 
   // console.info("chrome.executablePath,",await chrome.executablePath)
-
+  //chromium.
    const browser = await puppeteer.launch({
      args: [
       ...chromium.args,
-       /*'--incognito',
-       '--no-sandbox',
+       '--incognito',
+       /*'--no-sandbox',
        '--hide-scrollbars',
        '--disable-setuid-sandbox',*/
        ///'--single-process',
       /// '--no-zygote'
      ],
       headless:false,
-      executablePath: await (chromium.executablePath()) ,/// ONLY PROD
+      executablePath: await (chromium.executablePath) ,/// ONLY PROD
       ignoreHTTPSErrors:true,
    }); //{headless:false}
   return browser;
