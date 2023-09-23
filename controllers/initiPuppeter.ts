@@ -5,7 +5,8 @@
 //import chrome from 'chrome-aws-lambda';
 import puppeteer,{BrowserContext,Page} from 'puppeteer-core';///SOLO PROD
 
-import chromium from "@sparticuz/chromium";
+
+import chromium from "@sparticuz/chromium" ;
 
 // Optional: If you'd like to use the legacy headless mode. "new" is the default.
 chromium.setHeadlessMode = true;
@@ -48,7 +49,7 @@ async function _initBrowser() {
       /// '--no-zygote'
      ],
       headless:false,
-      executablePath: await (chromium.executablePath) ,/// ONLY PROD
+      executablePath: await (chromium.executablePath()) ,/// ONLY PROD
       ignoreHTTPSErrors:true,
    }); //{headless:false}
   return browser;

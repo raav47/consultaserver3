@@ -6,8 +6,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const chrome_aws_lambda_1 = __importDefault(require("chrome-aws-lambda"));
+//import chrome from 'chrome-aws-lambda';
 const puppeteer_core_1 = __importDefault(require("puppeteer-core")); ///SOLO PROD
+const chromium_1 = __importDefault(require("@sparticuz/chromium"));
+// Optional: If you'd like to use the legacy headless mode. "new" is the default.
+chromium_1.default.setHeadlessMode = true;
+// Optional: If you'd like to disable webgl, true is the default.
+chromium_1.default.setGraphicsMode = false;
 /// SOLO PRUEBA import puppeteer,{BrowserContext,Page} from 'puppeteer';/// SOLO PRUEBA 
 let contextGlobal; //convertir a clase
 //let prueba = true;
@@ -27,16 +32,16 @@ async function _initBrowser() {
     // console.info("chrome.executablePath,",await chrome.executablePath)
     const browser = await puppeteer_core_1.default.launch({
         args: [
-            ...chrome_aws_lambda_1.default.args,
-            '--incognito',
+            ...chromium_1.default.args,
+            /*'--incognito',
             '--no-sandbox',
             '--hide-scrollbars',
-            '--disable-setuid-sandbox',
-            //'--single-process',
-            // '--no-zygote'
+            '--disable-setuid-sandbox',*/
+            ///'--single-process',
+            /// '--no-zygote'
         ],
         headless: false,
-        executablePath: await (chrome_aws_lambda_1.default.executablePath),
+        executablePath: await (chromium_1.default.executablePath()),
         ignoreHTTPSErrors: true,
     }); //{headless:false}
     return browser;
