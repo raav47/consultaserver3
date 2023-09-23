@@ -10,7 +10,7 @@
     "dev": "tsc && node ./build/serverConsultaSaldo.js"
   },
   "engines": {
-    "node": "^14"
+    "node": "^18"
   },
   "pkg": {
     "scripts": [
@@ -20,9 +20,10 @@
   "author": "yo",
   "license": "ISC",
   "dependencies": {
-    "chrome-aws-lambda": "^10.1.0",
+   
     "express": "^4.18.1",
-    "puppeteer-core": "^10.1.0"
+    "puppeteer-core": "^18.0.5",
+    "@sparticuz/chromium":""
   },
   "devDependencies": {
     "@types/express": "^4.17.17",

@@ -2,8 +2,19 @@
 //import puppeteer from 'puppeteer-extra';
 //import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
-import chrome from 'chrome-aws-lambda';
+//import chrome from 'chrome-aws-lambda';
 import puppeteer,{BrowserContext,Page} from 'puppeteer-core';///SOLO PROD
+
+import chromium from "@sparticuz/chromium";
+
+// Optional: If you'd like to use the legacy headless mode. "new" is the default.
+chromium.setHeadlessMode = true;
+
+// Optional: If you'd like to disable webgl, true is the default.
+chromium.setGraphicsMode = false;
+
+
+
 /// SOLO PRUEBA import puppeteer,{BrowserContext,Page} from 'puppeteer';/// SOLO PRUEBA 
 
 let contextGlobal:BrowserContext;//convertir a clase
@@ -28,16 +39,16 @@ async function _initBrowser() {
 
    const browser = await puppeteer.launch({
      args: [
-      ...chrome.args,
-       '--incognito',
+      ...chromium.args,
+       /*'--incognito',
        '--no-sandbox',
        '--hide-scrollbars',
-       '--disable-setuid-sandbox',
-       //'--single-process',
-      // '--no-zygote'
+       '--disable-setuid-sandbox',*/
+       ///'--single-process',
+      /// '--no-zygote'
      ],
       headless:false,
-      executablePath: await (chrome.executablePath) ,/// ONLY PROD
+      executablePath: await (chromium.executablePath) ,/// ONLY PROD
       ignoreHTTPSErrors:true,
    }); //{headless:false}
   return browser;
