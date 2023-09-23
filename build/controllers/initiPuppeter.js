@@ -12,7 +12,7 @@ const chromium_1 = __importDefault(require("@sparticuz/chromium"));
 // Optional: If you'd like to use the legacy headless mode. "new" is the default.
 //chromium.setHeadlessMode = true;
 // Optional: If you'd like to disable webgl, true is the default.
-//chromium.setGraphicsMode = false;
+chromium_1.default.setGraphicsMode = false;
 /// SOLO PRUEBA import puppeteer,{BrowserContext,Page} from 'puppeteer';/// SOLO PRUEBA 
 let contextGlobal; //convertir a clase
 //let prueba = true;
@@ -41,8 +41,8 @@ async function _initBrowser() {
             ///'--single-process',
             /// '--no-zygote'
         ],
-        headless: false,
-        executablePath: await (chromium_1.default.executablePath),
+        headless: chromium_1.default.headless,
+        executablePath: await (chromium_1.default.executablePath()),
         ignoreHTTPSErrors: true,
     }); //{headless:false}
     return browser;

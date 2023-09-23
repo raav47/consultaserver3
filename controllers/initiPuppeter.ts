@@ -12,7 +12,7 @@ import chromium from "@sparticuz/chromium" ;
 //chromium.setHeadlessMode = true;
 
 // Optional: If you'd like to disable webgl, true is the default.
-//chromium.setGraphicsMode = false;
+chromium.setGraphicsMode = false;
 
 
 
@@ -48,8 +48,8 @@ async function _initBrowser() {
        ///'--single-process',
       /// '--no-zygote'
      ],
-      headless:false,
-      executablePath: await (chromium.executablePath) ,/// ONLY PROD
+      headless:chromium.headless,
+      executablePath: await (chromium.executablePath()) ,/// ONLY PROD
       ignoreHTTPSErrors:true,
    }); //{headless:false}
   return browser;
