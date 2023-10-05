@@ -40,16 +40,16 @@ async function _initBrowser() {
   //chromium.
    const browser = await puppeteer.launch({
      args: [
-      ...chromium.args,
+      ...chromium.args,///PROD
        '--incognito',
        /*'--no-sandbox',
-       '--hide-scrollbars',
-       '--disable-setuid-sandbox',*/
+       '--hide-scrollbars',*/
+       '--disable-setuid-sandbox',
        ///'--single-process',
       /// '--no-zygote'
      ],
-      headless:chromium.headless,
-      executablePath: await (chromium.executablePath()) ,/// ONLY PROD
+      headless: chromium.headless,///PROD,
+      executablePath: await (chromium.executablePath()) ,/// ONLY PROD , LOCAL: "E:\Temp\1\localChromium\chromium\win64-1205945\chrome-win\chrome.exe" o "E:/Temp/1/localChromium/chromium/win64-1205945/chrome-win/chrome"
       ignoreHTTPSErrors:true,
    }); //{headless:false}
   return browser;
@@ -63,10 +63,12 @@ async function _initContext() { //esto seria un getter
   ///
   const browser = await _initBrowser();
 
+  console.info("broser iniciado")
+
   const context = await browser.createIncognitoBrowserContext();
 
   contextGlobal = context; //convertir a clase para evitar variables globales y recordar mas seguro estado
-
+ // console.info("returnado context")
   return context;
   
 }
@@ -77,8 +79,11 @@ async function _initPuppeter() {
   
       const context = await _initContext();
   
+    //  console.info("contexto iniciado")
+     // console.info("pages = ",await context.pages())
+      //context.
       const page = await context.newPage();
-  
+      console.info("page iniciado")
   
   
      page.setDefaultNavigationTimeout(120000);
@@ -111,7 +116,7 @@ async function _initPuppeter() {
 async function initPage(url:string):Promise<Page> { 
   const page = await _initPuppeter();
   try{  
-    //console.log('page ', page)
+    console.log('page _initPuppeter ', page)
     
     await page.goto(url, { //http://www.movilnet.com.ve/sitio/minisitios/consulta/
       waitUntil: 'domcontentloaded',

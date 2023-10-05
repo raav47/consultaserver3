@@ -36,8 +36,8 @@ async function _initBrowser() {
             ...chromium_1.default.args,
             '--incognito',
             /*'--no-sandbox',
-            '--hide-scrollbars',
-            '--disable-setuid-sandbox',*/
+            '--hide-scrollbars',*/
+            '--disable-setuid-sandbox',
             ///'--single-process',
             /// '--no-zygote'
         ],
@@ -53,15 +53,21 @@ async function _initContext() {
         return contextGlobal;
     ///
     const browser = await _initBrowser();
+    console.info("broser iniciado");
     const context = await browser.createIncognitoBrowserContext();
     contextGlobal = context; //convertir a clase para evitar variables globales y recordar mas seguro estado
+    // console.info("returnado context")
     return context;
 }
 async function _initPuppeter() {
     //puppeteer.launch
     //browser.createIncognitoBrowserContext();
     const context = await _initContext();
+    //  console.info("contexto iniciado")
+    // console.info("pages = ",await context.pages())
+    //context.
     const page = await context.newPage();
+    console.info("page iniciado");
     page.setDefaultNavigationTimeout(120000);
     //await page.setCacheEnabled(false);//En teoria para que pueda undir f5 en la de digitel sin que me salga el captcha luego de un tiempo
     await page.setRequestInterception(true);
@@ -83,7 +89,7 @@ async function _initPuppeter() {
 async function initPage(url) {
     const page = await _initPuppeter();
     try {
-        //console.log('page ', page)
+        console.log('page _initPuppeter ', page);
         await page.goto(url, {
             waitUntil: 'domcontentloaded',
             timeout: 120000,

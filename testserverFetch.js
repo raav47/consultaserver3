@@ -13,7 +13,7 @@ const axiosConfig = {
 
 
 //const url = 'https://server-chi-jade.vercel.app/';//https://arcane-chamber-98016.herokuapp.com/
-const url = 'http://192.168.0.118:9108/';
+const url = 'http://192.168.0.116:9108/';
 
 /*
 const numbers = ['04161847313','04163607743','04163147782','04165244948','04169709278'];
@@ -53,6 +53,7 @@ numbers.forEach(async(numero)=>{//MULTI REQ
     console.info("url "+url)
     console.info("iniciado consulta saldo del número "+numero)
     await consultaSaldoDigitel(numero);
+   // await consultaSaldoCantv("02763555358")
 })();
 
 async function consultaSaldoMovilnet(numero) {
