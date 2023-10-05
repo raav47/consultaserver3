@@ -1,7 +1,10 @@
 [user]
-    name = raav24
-    email = ricardo.v1v46@gmail.com
-    password = Raymond233.
+    #name = raav24
+    #email = ricardo.v1v46@gmail.com
+    #password = Raymond233.
+    name = raav47
+    email = ricardo.v1v47@gmail.com
+    password = Raymond23.
 [http]
     sslVerify = false
 
